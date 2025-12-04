@@ -16,6 +16,10 @@ public class ProductTest {
 
     @BeforeEach
     void setUp() {
+        // Generate a stable or random business ID for the test context
+        // Add a field for the BusinessId needed in the setup
+        BusinessId businessId = BusinessId.generate();
+
         // Create sample inputs for product creation
         DescriptionVO description = new DescriptionVO("A great product description.");
         GalleryVO gallery = new GalleryVO(Set.of(new ImageUrlVO("https://example.com/image1.jpg")));
@@ -30,8 +34,16 @@ public class ProductTest {
                 Collections.emptyList()
         );
 
-        // Create a product instance
-        product = Product.create("Electronics", description, gallery, Set.of(variant));
+        // --- FIX ---
+        // Create a product instance using the updated 'create' signature
+        // which now requires 'businessId' as the first argument.
+        product = Product.create(
+                businessId, // Pass the required BusinessId
+                "Electronics",
+                description,
+                gallery,
+                Set.of(variant)
+        );
     }
 
     @Test
@@ -39,6 +51,8 @@ public class ProductTest {
         // Print the product layout in a readable format
         System.out.println("Product Layout:");
         System.out.printf("ID: %s%n", product.id());
+        // Add printing the Business ID
+        System.out.printf("Business ID: %s%n", product.businessId());
         System.out.printf("Category: %s%n", product.category());
         System.out.printf("Description: %s%n", product.description());
         System.out.printf("Gallery: %s%n", product.gallery());
