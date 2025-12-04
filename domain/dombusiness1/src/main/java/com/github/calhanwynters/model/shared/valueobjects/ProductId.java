@@ -15,7 +15,7 @@ public record ProductId(String value) {
     }
 
     public static com.github.calhanwynters.model.shared.valueobjects.ProductId generate() {
-        return new com.github.calhanwynters.model.shared.valueobjects.ProductId(UUID.randomUUID().toString());
+        return new ProductId(UUID.randomUUID().toString());
     }
 
     @Override

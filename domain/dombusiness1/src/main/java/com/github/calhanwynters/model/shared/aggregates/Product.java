@@ -10,14 +10,16 @@ import java.util.*;
  */
 public record Product(
         ProductId id,
-        String category, // This field is part of the instance
+        BusinessId businessId, // <-- New field
+        String category,
         DescriptionVO description,
         GalleryVO gallery,
         Set<Variant> variants
 ) {
     public Product {
         Objects.requireNonNull(id, "id must not be null");
-        Objects.requireNonNull(category, "category must not be null"); // Added null check for category
+        Objects.requireNonNull(businessId, "businessId must not be null"); // <-- Null check for BusinessId
+        Objects.requireNonNull(category, "category must not be null");
         Objects.requireNonNull(description, "featureDescription must not be null");
         Objects.requireNonNull(gallery, "gallery must not be null");
         Objects.requireNonNull(variants, "variants must not be null");
@@ -29,35 +31,45 @@ public record Product(
 
     /**
      * Updated Factory method: Now accepts initial variants as the generic interface
-     * and requires the category to be passed in.
+     * and requires the category and businessId to be passed in.
      */
     public static Product create(
-            String category, // Category must be passed as an argument to the static method
+            BusinessId businessId,
+            String category,
             DescriptionVO description,
             GalleryVO gallery,
             Set<Variant> initialVariants
     ) {
-        // Corrected: 'category' is now the local parameter variable
-        return new Product(ProductId.generate(), category, description, gallery, initialVariants);
+        // Updated constructor call with businessId as the second argument:
+        return new Product(
+                ProductId.generate(),
+                businessId,
+                category,
+                description,
+                gallery,
+                initialVariants
+        );
     }
 
     /**
      * Factory method for creating an item with no variants initially,
-     * requires the category to be passed in.
+     * requires the category and businessId to be passed in.
      */
     public static Product create(
-            String category, // Category required here too
+            BusinessId businessId, // <-- Requires BusinessId here too
+            String category,
             DescriptionVO description,
             GalleryVO gallery
     ) {
-        return create(category, description, gallery, Collections.emptySet());
+        // Delegates to the main create method, passing the new businessId argument:
+        return create(businessId, category, description, gallery, Collections.emptySet());
     }
 
     // --- Behavior Methods ---
 
     public Product changeDescription(DescriptionVO newDescription) {
         // Corrected to return a new instance with the updated description
-        return new Product(this.id, this.category, newDescription, this.gallery, this.variants);
+        return new Product(this.id, this.businessId, this.category, newDescription, this.gallery, this.variants);
     }
 
     public Product addImage(ImageUrlVO newImageUrl) {
@@ -65,7 +77,7 @@ public record Product(
         updatedImages.add(newImageUrl);
         GalleryVO updatedGallery = new GalleryVO(updatedImages);
         // Corrected to use the updated gallery
-        return new Product(this.id, this.category, this.description, updatedGallery, this.variants);
+        return new Product(this.id, this.businessId, this.category, this.description, updatedGallery, this.variants);
     }
 
     /*** Adds a new variant to the Product.
@@ -87,7 +99,7 @@ public record Product(
         Set<Variant> updatedVariants = new HashSet<>(this.variants);
         updatedVariants.add(newVariant);
 
-        return new Product(this.id, this.category, this.description, this.gallery, Collections.unmodifiableSet(updatedVariants));
+        return new Product(this.id, this.businessId, this.category, this.description, this.gallery, Collections.unmodifiableSet(updatedVariants));
     }
 
 
