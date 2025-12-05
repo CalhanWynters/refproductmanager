@@ -1,6 +1,7 @@
 package com.github.calhanwynters.model.shared.aggregates;
 
 import com.github.calhanwynters.model.shared.entities.Variant; // Import the shared interface
+import com.github.calhanwynters.model.shared.exceptions.VariantAlreadyExistsException;
 import com.github.calhanwynters.model.shared.valueobjects.*;
 import java.util.*;
 
@@ -84,22 +85,22 @@ public record Product(
      * @param newVariant The variant to add (can be any type that implements the interface).
      * @return A new Product instance with the added variant.
      */
-    public Product addVariant(Variant newVariant) { // Accepts the interface
+    public Product addVariant(Variant newVariant) {
         Objects.requireNonNull(newVariant, "newVariant must not be null");
 
-        // Use a stream to check for existence based on the ID before attempting to add
         boolean idAlreadyExists = this.variants.stream()
                 .anyMatch(v -> v.id().equals(newVariant.id()));
 
         if (idAlreadyExists) {
-            // FIX: Access the internal value using the correct record accessor 'value()'
-            throw new IllegalArgumentException("Variant with this ID already exists: " + newVariant.id().value());
+            // Throw a specific domain exception that the application service layer can handle
+            throw new VariantAlreadyExistsException("Variant with ID " + newVariant.id().value() + " already exists.");
         }
 
         Set<Variant> updatedVariants = new HashSet<>(this.variants);
         updatedVariants.add(newVariant);
 
-        return new Product(this.id, this.businessId, this.category, this.description, this.gallery, Collections.unmodifiableSet(updatedVariants));
+        // Ensure the returned set is immutable
+        return new Product(this.id, this.businessId, this.category, this.description, this.gallery, Set.copyOf(updatedVariants));
     }
 
 
