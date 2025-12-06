@@ -1,4 +1,4 @@
-package business1domain.valueobjects;
+package com.github.calhanwynters.business1domain.valueobjects;
 
 import com.github.calhanwynters.business1domain.valueobjects.GalleryVO;
 import com.github.calhanwynters.business1domain.valueobjects.ImageUrlVO;

@@ -33,7 +33,10 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public Optional<Product> findProductById(ProductId id) {
-        return productQueryRepository.findById(id);
+        return productQueryRepository.findById(id)
+                .or(() -> {
+                    throw new ProductNotFoundException(id); // Throwing the exception if not found
+                });
     }
 
     @Override

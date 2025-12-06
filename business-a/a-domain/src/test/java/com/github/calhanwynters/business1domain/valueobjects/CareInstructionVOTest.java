@@ -1,4 +1,4 @@
-package business1domain.valueobjects;
+package com.github.calhanwynters.business1domain.valueobjects;
 
 import com.github.calhanwynters.business1domain.valueobjects.CareInstructionVO;
 import org.junit.jupiter.api.Test;

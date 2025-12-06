@@ -1,4 +1,4 @@
-package business1domain.enums;
+package com.github.calhanwynters.business1domain.enums;
 
 import com.github.calhanwynters.business1domain.enums.WeightUnitEnums;
 import org.junit.jupiter.api.Test;

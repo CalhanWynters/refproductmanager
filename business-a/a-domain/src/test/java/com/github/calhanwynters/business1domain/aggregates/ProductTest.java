@@ -1,4 +1,4 @@
-package business1domain.aggregates;
+package com.github.calhanwynters.business1domain.aggregates;
 
 import com.github.calhanwynters.business1domain.aggregates.Product;
 import com.github.calhanwynters.business1domain.entities.Variant;

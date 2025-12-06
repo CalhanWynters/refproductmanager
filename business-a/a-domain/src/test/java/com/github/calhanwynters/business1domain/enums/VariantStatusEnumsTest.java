@@ -1,4 +1,4 @@
-package business1domain.enums;
+package com.github.calhanwynters.business1domain.enums;
 
 import com.github.calhanwynters.business1domain.enums.VariantStatusEnums;
 import org.junit.jupiter.api.Test;

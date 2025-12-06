@@ -1,4 +1,4 @@
-package business1domain.entities;
+package com.github.calhanwynters.business1domain.entities;
 
 import com.github.calhanwynters.business1domain.entities.Variant;
 import com.github.calhanwynters.business1domain.enums.VariantStatusEnums;

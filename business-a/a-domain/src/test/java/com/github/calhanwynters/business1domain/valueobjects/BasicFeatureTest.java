@@ -1,4 +1,4 @@
-package business1domain.valueobjects;
+package com.github.calhanwynters.business1domain.valueobjects;
 
 import com.github.calhanwynters.business1domain.valueobjects.BasicFeature;
 import org.junit.jupiter.api.Test;
