@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>com.github.calhanwynters</groupId>
+        <artifactId>business-a</artifactId>
+        <version>0.0.1-SNAPSHOT</version>
+    </parent>
+
+    <artifactId>a-domain</artifactId>
+
+    <properties>
+        <maven.compiler.source>21</maven.compiler.source>
+        <maven.compiler.target>21</maven.compiler.target>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <!-- Centralize JavaMoney API version -->
+        <javamoney-api.version>1.1</javamoney-api.version>
+        <javamoney-moneta.version>1.4.3</javamoney-moneta.version>
+    </properties>
+
+    <dependencies>
+        <!-- JavaMoney API interfaces (used in the domain layer) -->
+        <dependency>
+            <groupId>javax.money</groupId>
+            <artifactId>money-api</artifactId>
+            <version>${javamoney-api.version}</version>
+        </dependency>
+        <!-- JavaMoney Implementation (Moneta) - Only required for tests in this module -->
+        <dependency>
+            <!-- https://mvnrepository.com/artifact/org.javamoney/moneta -->
+            <groupId>org.javamoney</groupId>
+            <artifactId>moneta</artifactId>
+            <version>1.4.5</version>
+            <type>pom</type>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+
+</project>

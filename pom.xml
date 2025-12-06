@@ -22,12 +22,7 @@
 		<developer/>
 	</developers>
     <modules>
-        <module>domain</module>
-        <module>infrastructure</module>
-        <module>application</module>
-        <module>domain/dombusiness1</module>
-        <module>domain/dombusiness2</module>
-        <module>application/appbusiness1</module>
+        <module>business-a</module>
     </modules>
     <scm>
 		<connection/>
@@ -68,13 +63,28 @@
 		</dependencies>
 	</dependencyManagement>
 
-	<build>
-		<plugins>
-			<plugin>
-				<groupId>org.springframework.boot</groupId>
-				<artifactId>spring-boot-maven-plugin</artifactId>
-			</plugin>
-		</plugins>
-	</build>
+    <!-- In your ROOT project/pom.xml file -->
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+
+            <!-- ADD THIS BLOCK TO FORCE CORRECT CLASSPATH HANDLING -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>${java.version}</source>
+                    <target>${java.version}</target>
+                    <!-- This flag is sometimes needed for complex multi-module setups -->
+                    <useIncrementalCompilation>false</useIncrementalCompilation>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
 
 </project>
