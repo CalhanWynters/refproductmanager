@@ -126,4 +126,6 @@ public record Variant(
     public Variant markAsDiscontinued() {
         return new Variant(this.id, this.sku, this.basePrice, this.currentPrice, this.features, this.careInstructions, this.weight, VariantStatusEnums.DISCONTINUED);
     }
+
+
 }

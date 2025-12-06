@@ -11,16 +11,9 @@ import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
-/*
-* Make sure that any clients consuming this service are prepared to
-* handle Optional<Product> and the custom exceptions you’ve defined. This
-* will improve the overall robustness and clarity
-*/
-
-
 @Service
 public class ProductServiceImpl implements ProductService {
-
+    // ... (fields and constructor omitted for brevity) ...
     private final ProductQueryRepository productQueryRepository;
     private final ProductCommandRepository productCommandRepository;
 
@@ -33,14 +26,16 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public Optional<Product> findProductById(ProductId id) {
+        // This signature is already correct based on your previous code
         return productQueryRepository.findById(id)
                 .or(() -> {
-                    throw new ProductNotFoundException(id); // Throwing the exception if not found
+                    throw new ProductNotFoundException(id);
                 });
     }
 
     @Override
     public void saveProduct(Product product) {
+        // This signature is already correct based on your previous code
         try {
             productCommandRepository.save(product);
         } catch (Exception e) {
@@ -50,6 +45,7 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public void deleteProduct(ProductId id) {
+        // This signature is already correct based on your previous code
         Optional<Product> product = productQueryRepository.findById(id);
         if (product.isEmpty()) {
             throw new ProductNotFoundException(id);
